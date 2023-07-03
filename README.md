@@ -18,11 +18,9 @@ Como definido pelo ChatGPT, da própria OpenAI, o Dall-E é:
 
 1. Criação de conta
 
-2. Histórico das imagens geradas
+2. Possibilidade de gerar de 1 a 4 imagens
 
-3. Possibilidade de gerar de 1 a 4 imagens
-
-4. Possibilidade de escolher entre três opções de resoluções:
+3. Possibilidade de escolher entre três opções de resoluções:
 
    - 256x256
 
@@ -30,7 +28,7 @@ Como definido pelo ChatGPT, da própria OpenAI, o Dall-E é:
 
    - 1024x1024
 
-5. Possibilidade de download das imagens geradas
+4. Possibilidade de download das imagens geradas
 
 </br>
 
