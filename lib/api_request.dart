@@ -8,7 +8,7 @@ Future<List<String>> generateImage(String input, int nImage, String size) async 
   final url = Uri.parse("https://api.openai.com/v1/images/generations");
 
   final headers = {
-    "Authorization":"Bearer $apiKey",
+    "Authorization": "Bearer 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",
     "Content-Type": "application/json"
   };
 
@@ -21,11 +21,17 @@ Future<List<String>> generateImage(String input, int nImage, String size) async 
   final response = await http.post(url, headers: headers, body: body);
 
   if(response.statusCode == 200) {
-    var res = jsonDecode(response.body);
-    List<String> imageURL = res['data'];
+    var res = jsonDecode(response.body.toString());
+    List imageURL = res["data"];
+    List<String> images = [];
 
-    return imageURL;
+    for(var e in imageURL) {
+      var el = e["url"];
+      images.add(el);
+    }
+
+    return images;
   } else {
-    return ["ERROR! Status Code = "];
+    return ["ERROR! Status Code: ${response.statusCode}"];
   }
 }

@@ -1,37 +1,25 @@
-# Projeto Gerador de Imagem
+# Infos da Main Page
 
-### *Descrição do Projeto*
+### Cores
 
-O Projeto tem o intuito de gerar imagens utilizando uma simples entrada de texto do usuário, mas como? *Simples!* É só simplesmente utilizarmos a **Inteligência Artificial** da [*OpenAI*](https://openai.com/), o [*"Dall-E"*](https://platform.openai.com/docs/api-reference/images/create).
+1. *Main Background* #FAFAFC
 
-O Dall-E nos permite, que, com somente algumas palavras como entrada, geremos uma *- ou melhor -* várias imagens completas e com infinitos detalhes.
+2. *Secondary Background Scheme* #F2F2F6
 
-</br>
+3. *Main Font Color* #6e6e80
 
-Como definido pelo ChatGPT, da própria OpenAI, o Dall-E é:
+4. *Main Highlighter* #777777
 
-> *Um modelo baseado em rede neural projetado para gerar imagens a partir de descrições textuais.*
+5. *Secondary Scheme*  #D2F4D3
 
-</br>
+6. *Font Highlight* #10a37f
 
-### *Funcionalidades do APP*
+7. *Secondary Font Color* #1A7F64
 
-1. Criação de conta
+### Fontes
 
-2. Histórico das imagens geradas
+- Fontes que nós vamos utilizar
 
-3. Possibilidade de gerar de 1 a 4 imagens
-
-4. Possibilidade de escolher entre três opções de resoluções:
-
-   - 256x256
-
-   - 512x512
-
-   - 1024x1024
-
-5. Possibilidade de download das imagens geradas
-
-</br>
-
-> ***Nota:***  *Todo o conteúdo desse projeto é acadêmico e sem nenhum fim lucrativo!*
+        1. Sans-serif
+                
+                - Roboto
