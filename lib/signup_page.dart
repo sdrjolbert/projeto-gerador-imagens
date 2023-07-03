@@ -43,7 +43,7 @@ class AuthSignUpState extends State<AuthSignUpPage> {
     }
 
     final FirebaseInterface fbInt = FirebaseInterface();
-    final err = await fbInt.signIn(email, passwd);
+    final err = await fbInt.signUp(email, passwd);
 
     if(err == null) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AuthLoginPage()));
@@ -53,22 +53,6 @@ class AuthSignUpState extends State<AuthSignUpPage> {
       //     SnackBar(
       //         content: Text('Erro ao fazer o login! Código de erro: $err')
       //     )
-      // );
-    }
-  }
-
-  Future googleSignUp() async {
-    final FirebaseInterface fbInt = FirebaseInterface();
-    final err = await fbInt.loginWithGoogle();
-
-    if(err == null) {
-      Utils.toast("Erro ao fazer o login! Código de erro: $err");
-      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
-    } else {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //       content: Text('Erro ao fazer o login com Google! Código de erro: $err')
-      //   )
       // );
     }
   }
@@ -90,7 +74,7 @@ class AuthSignUpState extends State<AuthSignUpPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-                padding: const EdgeInsets.all(50),
+                padding: const EdgeInsets.only(bottom: 35),
                 alignment: Alignment.center,
                 child: const Text(
                   "Gerador de Imagens",
@@ -149,7 +133,7 @@ class AuthSignUpState extends State<AuthSignUpPage> {
               ],
             ),
             Container(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -202,7 +186,7 @@ class AuthSignUpState extends State<AuthSignUpPage> {
                 )
             ),
             Container(
-                padding: const EdgeInsets.all(25),
+                padding: const EdgeInsets.all(15),
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   onPressed: signUp,
@@ -228,61 +212,61 @@ class AuthSignUpState extends State<AuthSignUpPage> {
                   },
                 )
             ),
-            Container(
-                padding: const EdgeInsets.only(top: 25),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 20, right: 15),
-                        child: const Divider(
-                          thickness: .7,
-                          color: Color(mainHighlighter)
-                        )
-                      )
-                  ),
-                  const Text("OU", style: TextStyle(color: Color(mainFontColor))),
-                  Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 15, right: 20),
-                        child: const Divider(
-                          thickness: .7,
-                          color: Color(mainHighlighter)
-                      )
-                    )
-                  )
-                ],
-              )
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 45),
-              child: SizedBox(
-                height: 45,
-                width: 230,
-                child: OutlinedButton.icon(
-                  icon: Image.asset(
-                    "assets/images/google_logo.png",
-                    height: 24,
-                    width: 24,
-                  ),
-                  style: ButtonStyle(
-                    alignment: Alignment.center,
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)
-                      )
-                    )
-                  ),
-                  onPressed: googleSignUp,
-                  label: const Text(
-                    "Continue com Google",
-                    style: TextStyle(
-                        fontSize: 16
-                    ),
-                  ),
-                ),
-              )
-            )
+            // Container(
+            //     padding: const EdgeInsets.only(top: 25),
+            //     child: Row(
+            //       children: <Widget>[
+            //         Expanded(
+            //           child: Container(
+            //             padding: const EdgeInsets.only(left: 20, right: 15),
+            //             child: const Divider(
+            //               thickness: .7,
+            //               color: Color(mainHighlighter)
+            //             )
+            //           )
+            //       ),
+            //       const Text("OU", style: TextStyle(color: Color(mainFontColor))),
+            //       Expanded(
+            //           child: Container(
+            //             padding: const EdgeInsets.only(left: 15, right: 20),
+            //             child: const Divider(
+            //               thickness: .7,
+            //               color: Color(mainHighlighter)
+            //           )
+            //         )
+            //       )
+            //     ],
+            //   )
+            // ),
+            // Container(
+            //   padding: const EdgeInsets.only(top: 45),
+            //   child: SizedBox(
+            //     height: 45,
+            //     width: 230,
+            //     child: OutlinedButton.icon(
+            //       icon: Image.asset(
+            //         "assets/images/google_logo.png",
+            //         height: 24,
+            //         width: 24,
+            //       ),
+            //       style: ButtonStyle(
+            //         alignment: Alignment.center,
+            //         shape: MaterialStateProperty.all(
+            //           RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(30)
+            //           )
+            //         )
+            //       ),
+            //       onPressed: googleSignUp,
+            //       label: const Text(
+            //         "Continue com Google",
+            //         style: TextStyle(
+            //             fontSize: 16
+            //         ),
+            //       ),
+            //     ),
+            //   )
+            // )
           ],
         ),
       ),

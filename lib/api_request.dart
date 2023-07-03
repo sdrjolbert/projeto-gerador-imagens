@@ -8,7 +8,7 @@ Future<List<String>> generateImage(String input, int nImage, String size) async 
   final url = Uri.parse("https://api.openai.com/v1/images/generations");
 
   final headers = {
-    "Authorization": "Bearer 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",
+    "Authorization": "Bearer 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",
     "Content-Type": "application/json"
   };
 

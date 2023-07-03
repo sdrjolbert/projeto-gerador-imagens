@@ -89,16 +89,16 @@ class HomePageState extends State<HomePage> {
                           ClipRRect(
                             child: Image.network(
                               image.toString(),
-                              width: 350,
-                              height: 350,
+                              width: 275,
+                              height: 275,
                               fit: BoxFit.fitWidth,
                             )
                           ),
                           Container(
-                            padding: const EdgeInsets.all(15),
+                            padding: const EdgeInsets.all(5),
                             child: SizedBox(
                               height: 50,
-                              width: 350,
+                              width: 275,
                               child: isLoading ? const Center(child: CircularProgressIndicator()) :
                               OutlinedButton.icon(
                                 icon: const Icon(Icons.save_alt, size: 28),
@@ -217,7 +217,7 @@ class HomePageState extends State<HomePage> {
                           Container(
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: SizedBox(
-                              width: 35,
+                              width: 50,
                               height: 50,
                               child: DropdownButtonFormField<int>(
                                 value: _numberController.text.isNotEmpty
@@ -257,7 +257,7 @@ class HomePageState extends State<HomePage> {
                           Container(
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: SizedBox(
-                              width: 120,
+                              width: 130,
                               height: 50,
                               child: DropdownButtonFormField<String>(
                                 value: _sizeController.text.isNotEmpty
