@@ -1,9 +1,13 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseInterface {
   bool _isUserSignedIn = false;
 
   bool get isUserSignedIn => _isUserSignedIn;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   FirebaseInterface() {
     initFirebase();
@@ -60,6 +64,38 @@ class FirebaseInterface {
         print('Credencias incorretas!');
       }
       return e.code;
+    }
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    return await _auth.signInWithCredential(credential);
+  }
+
+  Future<void> signOut() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+
+    if (user != null) {
+      List<UserInfo> providers = user.providerData;
+
+      for (UserInfo userInfo in providers) {
+        if (userInfo.providerId == 'google.com') {
+          GoogleSignIn googleSignIn = GoogleSignIn();
+          await googleSignIn.signOut();
+          print('Logout do Google Sign-In realizado.');
+        } else if (userInfo.providerId == 'password') {
+          await auth.signOut();
+          print('Logout de e-mail/senha realizado.');
+        }
+      }
     }
   }
 }

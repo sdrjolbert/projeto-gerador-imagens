@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:gerador_imagens/login_page.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:dio/dio.dart';
 import 'package:gerador_imagens/utils.dart';
 import 'package:gerador_imagens/api_request.dart';
+import 'package:gerador_imagens/firebase_interface.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,7 +24,8 @@ class HomePageState extends State<HomePage> {
   List<String> listSizes = ["256x256", "512x512", "1024x1024"];
 
   bool isLoading = false;
-  bool isLoadingAPI = false;
+
+  int _keyCounter = 0;
 
   List<Widget> responseWidget = [];
   int len = 0;
@@ -67,9 +70,16 @@ class HomePageState extends State<HomePage> {
     });
   }
 
+  void resetFuture() {
+    setState(() {
+      _keyCounter++;
+    });
+  }
+
   void createWidget(String input, int n, String size) {
     responseWidget.add(
         FutureBuilder(
+          key: ValueKey<int>(_keyCounter),
           future: generateImage(input, n, size),
           builder: (context, snapshot) {
             if(snapshot.hasData) {
@@ -99,10 +109,14 @@ class HomePageState extends State<HomePage> {
                             child: SizedBox(
                               height: 50,
                               width: 275,
-                              child: isLoading ? const Center(child: CircularProgressIndicator()) :
-                              OutlinedButton.icon(
+                              child: isLoading ?
+                                const Center(child: CircularProgressIndicator())
+                                  :
+                                OutlinedButton.icon(
                                 icon: const Icon(Icons.save_alt, size: 28),
-                                onPressed: () => _saveNetworkImage(image),
+                                onPressed: () {
+                                  _saveNetworkImage(image);
+                                },
                                 label: const Text(
                                   "Baixar",
                                   style: TextStyle(
@@ -118,11 +132,6 @@ class HomePageState extends State<HomePage> {
                     ),
                   )
                 ],
-              );
-          } else if(snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                  margin: const EdgeInsets.only(top: 100),
-                  child: const CircularProgressIndicator()
               );
           } else {
             return Container(
@@ -149,6 +158,30 @@ class HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Gerador de Imagens"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
+        actions: [
+          PopupMenuButton(
+            icon: const Icon(Icons.more_vert),
+            onSelected: (value) {
+              if (value == 'logout') {
+                FirebaseInterface().signOut();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthLoginPage()));
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              const PopupMenuItem(
+                value: 'logout',
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.logout, size: 24, color: Color(mainHighlighter)),
+                    Padding(padding: EdgeInsets.only(left: 5)),
+                    Text("Logout", style: TextStyle(color: Color(mainFontColor), fontWeight: FontWeight.bold))
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       body: Center(
         child: ListView(
@@ -295,6 +328,7 @@ class HomePageState extends State<HomePage> {
                         setState(() {
                           responseWidget.clear();
                         });
+                        resetFuture();
                         setState(() {
                           createWidget(
                             _inputController.text,

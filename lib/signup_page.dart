@@ -34,12 +34,11 @@ class AuthSignUpState extends State<AuthSignUpPage> {
     final passwd = _passwordController.text.trim();
 
     if(email.isEmpty || passwd.isEmpty) {
-      Utils.toast("Há campos não preenchidos! Por favor, preencha todos os campos!");
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //     const SnackBar(
-      //       content: Text("Há campos não preenchidos! Por favor, preencha todos os campos!"),
-      //     )
-      // );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Há campos não preenchidos! Por favor, preencha todos os campos!"),
+        )
+      );
     }
 
     final FirebaseInterface fbInt = FirebaseInterface();
@@ -48,13 +47,28 @@ class AuthSignUpState extends State<AuthSignUpPage> {
     if(err == null) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AuthLoginPage()));
     } else {
-      Utils.toast("Erro ao fazer o login! Código de erro: $err");
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //     SnackBar(
-      //         content: Text('Erro ao fazer o login! Código de erro: $err')
-      //     )
-      // );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('Erro ao fazer o login! Código de erro: $err')
+        )
+      );
     }
+  }
+
+  void googleSignUp() {
+    final FirebaseInterface fbInt = FirebaseInterface();
+
+    fbInt.signInWithGoogle().then((userCredential) {
+      if(userCredential != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthLoginPage()));
+      }
+    }).catchError((err) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Não foi possível fazer login com o goole. Erro: $err')
+          )
+      );
+    });
   }
 
   @override
@@ -212,61 +226,61 @@ class AuthSignUpState extends State<AuthSignUpPage> {
                   },
                 )
             ),
-            // Container(
-            //     padding: const EdgeInsets.only(top: 25),
-            //     child: Row(
-            //       children: <Widget>[
-            //         Expanded(
-            //           child: Container(
-            //             padding: const EdgeInsets.only(left: 20, right: 15),
-            //             child: const Divider(
-            //               thickness: .7,
-            //               color: Color(mainHighlighter)
-            //             )
-            //           )
-            //       ),
-            //       const Text("OU", style: TextStyle(color: Color(mainFontColor))),
-            //       Expanded(
-            //           child: Container(
-            //             padding: const EdgeInsets.only(left: 15, right: 20),
-            //             child: const Divider(
-            //               thickness: .7,
-            //               color: Color(mainHighlighter)
-            //           )
-            //         )
-            //       )
-            //     ],
-            //   )
-            // ),
-            // Container(
-            //   padding: const EdgeInsets.only(top: 45),
-            //   child: SizedBox(
-            //     height: 45,
-            //     width: 230,
-            //     child: OutlinedButton.icon(
-            //       icon: Image.asset(
-            //         "assets/images/google_logo.png",
-            //         height: 24,
-            //         width: 24,
-            //       ),
-            //       style: ButtonStyle(
-            //         alignment: Alignment.center,
-            //         shape: MaterialStateProperty.all(
-            //           RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(30)
-            //           )
-            //         )
-            //       ),
-            //       onPressed: googleSignUp,
-            //       label: const Text(
-            //         "Continue com Google",
-            //         style: TextStyle(
-            //             fontSize: 16
-            //         ),
-            //       ),
-            //     ),
-            //   )
-            // )
+            Container(
+                padding: const EdgeInsets.only(top: 25),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        child: const Divider(
+                          thickness: .7,
+                          color: Color(mainHighlighter)
+                        )
+                      )
+                  ),
+                  const Text("OU", style: TextStyle(color: Color(mainFontColor))),
+                  Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 15, right: 20),
+                        child: const Divider(
+                          thickness: .7,
+                          color: Color(mainHighlighter)
+                      )
+                    )
+                  )
+                ],
+              )
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 45),
+              child: SizedBox(
+                height: 45,
+                width: 230,
+                child: OutlinedButton.icon(
+                  icon: Image.asset(
+                    "assets/images/google_logo.png",
+                    height: 24,
+                    width: 24,
+                  ),
+                  style: ButtonStyle(
+                    alignment: Alignment.center,
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
+                      )
+                    )
+                  ),
+                  onPressed: googleSignUp,
+                  label: const Text(
+                    "Continue com Google",
+                    style: TextStyle(
+                        fontSize: 16
+                    ),
+                  ),
+                ),
+              )
+            )
           ],
         ),
       ),
