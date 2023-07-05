@@ -33,3 +33,12 @@ Como definido pelo ChatGPT, da própria OpenAI, o Dall-E é:
 </br>
 
 > ***Nota:***  *Todo o conteúdo desse projeto é acadêmico e sem nenhum fim lucrativo!*
+
+### *Como pegar API key para usar no projeto*
+
+1. Criar uma conta no https://openai.com/blog/chatgpt usando uma conta google, para ganhar 5 dólares grátis usado na geração das imagens.
+2. Ir em https://platform.openai.com/account/api-keys
+3. Clicar em "create new secret key"
+4. Copiar a key
+5. Seguir o exemplo do arquivo example_api_key.dart
+ 
