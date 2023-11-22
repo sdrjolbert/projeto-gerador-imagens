@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gerador_imagens/color_generator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:gerador_imagens/login_page.dart';
 import 'package:gerador_imagens/main_page.dart';
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gerador de Imagens',
       theme: ThemeData(
-        primarySwatch: createMaterialColor(const Color(0xFF10a37f)),
+        primarySwatch: Colors.green,
         fontFamily: "Roboto"
       ),
       home: const AuthLoginPage()
